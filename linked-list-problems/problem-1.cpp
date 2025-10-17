@@ -22,7 +22,15 @@ void input_array(int* arr, int n){
 }
 
 void array_to_linked_list(int* arr, int n){
-
+    for(int i = 0; i < n; i++){
+        Node* newNode = new Node(arr[i]);
+        if(head == NULL){
+            head = tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
 }
 void display_array(int* arr, int n){
     for(int i = 0; i < n; i++){
@@ -32,8 +40,18 @@ void display_array(int* arr, int n){
     
 }
 
-void display_linked_list(int* arr, int n){
-
+void display_linked_list(){
+    Node* temp = head;
+    if(temp == NULL){
+        cout << "Empty list";
+        return;
+    } else {
+        while(temp != NULL){
+            cout << temp->data << " -> ";
+            temp = temp->next;
+        }
+        cout << " NULL " << endl;
+    }
 }
 int main(){
     int n = 5;
@@ -41,6 +59,9 @@ int main(){
     
     input_array(arr, n);
     display_array(arr, n);
+
+    array_to_linked_list(arr, n);
+    display_linked_list();
 
     delete[] arr;
     return 0;
