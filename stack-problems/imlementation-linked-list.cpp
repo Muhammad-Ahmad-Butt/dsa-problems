@@ -1,35 +1,72 @@
 #include <iostream>
-#include <list>
 using namespace std;
+
+
+struct Node {
+    int data;
+    Node* next;
+
+    Node(int val){
+        data = val;
+        next = NULL;
+    }
+};
 struct Stack {
-    list<int> ll;
+    Node* top;
+
+    Stack(){
+        top = NULL;
+    }
 
     void push(int val){
-        ll.push_front(val);
+        Node* newNode = new Node(val);
+        if(top == NULL){
+            top = newNode;
+            return;
+        } else {
+            newNode -> next = top;
+            top = newNode;
+        }
     }
 
     void pop(){
-        ll.pop_front();
+        if(top == NULL){
+            cout << "underflow" << endl;
+            return;
+        } else {
+            Node* temp = top;
+            cout << top->data << " popped\n";
+            top = top -> next;
+            delete temp;
+        }
     }
 
-    int peek(){
-        return ll.front();
-    }
+    int peek() {
+        if (top == NULL) {
+            cout << "Stack is empty\n";
+            return -1; // or throw
+        }
+        return top->data;
+    } 
 
-    bool empty(){
-        return ll.size() == 0;
+    void display(){
+        Node* temp = top;
+        while(temp != NULL){
+            cout << temp->data << " ";
+            temp = temp -> next;
+        }
+        cout << "\n";
     }
 };
 
+
 int main(){
-    Stack s;
+     Stack s;
+    s.push(5);
     s.push(10);
-    s.push(20);
-    s.push(30);
-    while(!s.empty()){
-        cout << s.peek() << " ";
-        s.pop();
-    }
-    cout << endl;
+    s.push(15);
+    s.display();
+    s.pop();
+    s.display();
     return 0;
 }
