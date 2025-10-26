@@ -99,6 +99,21 @@ int search(int key){
     }
     return -1;
 }
+
+void reverse_linked_list(){
+    Node* prev = NULL;
+    Node* curr = head;
+    Node* next = NULL;
+
+    while(curr != NULL){
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    tail = head;
+    head = prev;
+}
 int main(){
     push_front(10);
     push_front(20);
@@ -106,6 +121,7 @@ int main(){
     push_back(40);
     insert_middle(35,1);
     display_list();
-    cout << search(35);
+    reverse_linked_list();
+    display_list();
     return 0;
 }
