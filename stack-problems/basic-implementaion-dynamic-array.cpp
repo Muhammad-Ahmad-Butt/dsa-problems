@@ -25,7 +25,7 @@ struct Stack {
         if(top == -1){
             cout << "Stack underflow" << endl;
         } else { 
-            cout << arr[top--] << "poped from stack!" << endl;
+            cout << arr[top--] << " popped from stack!" << endl;
         }
     }
     void peek(){
@@ -34,6 +34,11 @@ struct Stack {
         } else {
             cout << "Top element: " << arr[top] << endl;
         }
+    }
+    
+    ~Stack() {  // Destructor to free memory
+        delete[] arr;
+        cout << "Stack memory released!" << endl;
     }
 };
 
@@ -45,6 +50,5 @@ int main(){
     s.peek();
     s.pop();
     s.peek();
-
     return 0;
 }
