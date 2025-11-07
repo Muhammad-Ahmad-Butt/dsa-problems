@@ -33,12 +33,31 @@ void traverse_preorderly(Node* root){
     traverse_preorderly(root->left);
     traverse_preorderly(root-> right);
 }
+
+void traverse_inorderly(Node* root){
+    if(root == NULL) return;
+
+    traverse_inorderly(root->left);
+    cout << root->data << " ";
+    traverse_inorderly(root->right);
+}
+
+void traverse_postorderly(Node* root){
+    if(root == NULL) return;
+
+    traverse_postorderly(root->left);
+    traverse_postorderly(root->right);
+    cout << root->data << " ";
+}
 int main(){
     int arr[11] = {1, 2, -1, -1, 3, 4, -1, -1, 5, -1, -1};
 
     Node* root = buildTree(arr);
     
     traverse_preorderly(root);
-
+    cout << endl;
+    traverse_inorderly(root);
+    cout << endl;
+    traverse_postorderly(root);
     return 0;
 }
