@@ -10,11 +10,11 @@ struct Node {
         left = right = NULL;
     }
 };
+
 Node* insert(Node* root, int val){
     if(root == NULL){
         return new Node(val);
     }
-
     if(val < root->data){
         root->left = insert(root->left, val);
     } else {
@@ -23,7 +23,7 @@ Node* insert(Node* root, int val){
     return root;
 }
 
-Node* build_bst(int size, int arr[]){
+Node* build_bst(int arr[], int size){
     Node* root = NULL;
     for(int i = 0; i < size; i++){
         root = insert(root, arr[i]);
@@ -31,18 +31,20 @@ Node* build_bst(int size, int arr[]){
     return root;
 }
 
-void inorder_traversal(Node* root){
+void inorder(Node* root){
     if(root == NULL){
         return;
     }
-    inorder_traversal(root->left);
+    inorder(root->left);
     cout << root->data << " ";
-    inorder_traversal(root->right);
+    inorder(root->right);
 }
+
 int main(){
     int size = 6;
-    int arr[] = {6, 4, 8, 2, 10, 4};
-    Node* root = build_bst(size, arr);
-    inorder_traversal(root);
+    int arr[size] = {3, 2, 1, 5, 6, 4};
+    Node* root = build_bst(arr, size);
+    inorder(root);
+    cout << endl;
     return 0;
 }
