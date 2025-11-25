@@ -31,6 +31,19 @@ Node* build_bst(int size, int arr[]){
     return root;
 }
 
+bool search(Node* root, int key){
+    if(root == NULL) return false;  // bst empty
+    if(root->data == key) return true;  //  key found
+
+    if(key < root->data){
+        return search(root->left, key);
+    }
+    if(key > root->data){
+        return search(root->right, key);
+    }
+    return false;
+}
+
 void inorder_traversal(Node* root){
     if(root == NULL){
         return;
