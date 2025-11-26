@@ -44,6 +44,43 @@ bool search(Node* root, int key){
     return false;
 }
 
+Node* get_inorder_successor(Node* root){
+    
+    while(root != NULL && root->left != NULL){
+        root = root->left;
+    }
+    return root;
+}
+
+Node* delete_node(Node* root, int key){
+    if(root == NULL){
+        return NULL;    //  return root;
+    }
+
+    if(key < root->data){
+        root->left = delete_node(root->left, key);
+    } else if(key > root->data){
+        root->right = delete_node(root->right, key);
+    } else {
+        // key == root->data
+        // actual deletion
+        if(root->left == NULL) {    //  0 or 1 child
+            Node* temp = root->right;
+            delete root;
+            return temp;
+        } else if(root->right == NULL){
+            Node* temp = root->left;
+            delete root;
+            return temp;
+        } else {    // 2 child case
+            Node* is = get_inorder_successor(root->right);
+            root->data = is->data;
+            root->right = delete_node(root->right, is->data);
+        }
+    }
+    return root;
+}
+
 void inorder_traversal(Node* root){
     if(root == NULL){
         return;
@@ -54,8 +91,13 @@ void inorder_traversal(Node* root){
 }
 int main(){
     int size = 6;
-    int arr[] = {6, 4, 8, 2, 10, 4};
+    int arr[] = {3, 2, 1, 5, 6, 4};
     Node* root = build_bst(size, arr);
     inorder_traversal(root);
+    cout << endl;
+
+    delete_node(root, 6);
+    inorder_traversal(root);
+    cout << endl;
     return 0;
 }
